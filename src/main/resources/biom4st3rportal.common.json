@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.biom4st3r.netherportals.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "requires": {
+    "fabric": "*"
+  },
+  "mixins": [
+    "ServerPlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

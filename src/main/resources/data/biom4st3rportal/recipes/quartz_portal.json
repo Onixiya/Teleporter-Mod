@@ -1,0 +1,22 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "iei",
+        " d ",
+        "iii"
+    ],
+    "key": {
+        "d": {
+            "item": "minecraft:quartz_pillar"
+        },
+        "i": {
+            "item": "minecraft:chiseled_quartz_block"
+        },
+        "e": {
+            "item": "minecraft:ender_eye"
+        }
+    },
+    "result": {
+        "item": "biom4st3rportal:quartz_portal"
+    }
+}

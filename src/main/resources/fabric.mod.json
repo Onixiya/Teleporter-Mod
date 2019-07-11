@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+<<<<<<< HEAD
+  "id": "biom4st3rportal",
+  "version": "${version}",
+
+  "name": "Fancy Fountain Passage",
+  "description": "Adds Fancy Fountain Portals",
+  "authors": [
+    "biom4st3r"
+=======
+  "id": "tele",
+  "version": "${version}",
+
+  "name": "Teleporter",
+  "description": "Adds a teleporter",
+  "authors": [
+    "onixiya"
+>>>>>>> First commit
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+<<<<<<< HEAD
+  "icon": "assets/modid/icon.png",
+=======
+  "icon": "assets/onixiya/icon.png",
+>>>>>>> First commit
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+<<<<<<< HEAD
+      "com.biom4st3r.netherportals.NetherPortalMod"
+    ],
+    "client": [
+      "com.biom4st3r.netherportals.NetherPortalClientMod"
+    ]
+  },
+  "mixins": [
+    "biom4st3rportal.common.json"
+=======
+      "net.onixiya.teleporter.TeleporterMod"
+    ],
+    "client": [
+      "net.onixiya.teleporter.TeleporterClientMod"
+    ]
+  },
+  "mixins": [
+    "onixiya.common.json"
+>>>>>>> First commit
+],
+  "requires": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

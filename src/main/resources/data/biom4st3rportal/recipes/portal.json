@@ -1,0 +1,22 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "iei",
+        " d ",
+        "iii"
+    ],
+    "key": {
+        "d": {
+            "item": "minecraft:purpur_pillar"
+        },
+        "i": {
+            "item": "minecraft:purpur_block"
+        },
+        "e": {
+            "item": "minecraft:ender_eye"
+        }
+    },
+    "result": {
+        "item": "biom4st3rportal:portal"
+    }
+}
