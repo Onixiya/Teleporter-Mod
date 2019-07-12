@@ -1,9 +1,7 @@
 package net.onixiya.teleporter.blocks;
 
 import java.util.Random;
-
 import net.onixiya.teleporter.TeleporterMod;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
@@ -11,14 +9,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class TeleporterBlock extends Block {
@@ -59,13 +54,6 @@ public class TeleporterBlock extends Block {
                 break;
 
             }
-
-        // EnchantingTableBlock
-        // world_1.addParticle(ParticleTypes.ENCHANT, (double)blockPos_1.getX() + 0.5D,
-        // (double)blockPos_1.getY() + 2.0D, (double)blockPos_1.getZ() + 0.5D,
-        // (double)((float)int_1 + random_1.nextFloat()) - 0.5D, (double)((float)int_3 -
-        // random_1.nextFloat() - 1.0F), (double)((float)int_2 + random_1.nextFloat()) -
-        // 0.5D);
     }
 
     @Override
@@ -74,24 +62,6 @@ public class TeleporterBlock extends Block {
 
         if (world_1.isClient)
             TeleporterMod.openTeleporterGUI(blockPos_1);
-        return true;
-    }
-
-    @Override
-    public void onPlaced(World world_1, BlockPos blockPos_1, BlockState blockState_1, LivingEntity livingEntity_1,
-            ItemStack itemStack_1) {
-        // super.onPlaced(world_1, blockPos_1, blockState_1, livingEntity_1,
-        // itemStack_1);
-
-    }
-
-    @Override
-    public boolean isOpaque(BlockState blockState_1) {
-        return false;
-    }
-
-    @Override
-    public boolean isTranslucent(BlockState blockState_1, BlockView blockView_1, BlockPos blockPos_1) {
         return true;
     }
 }

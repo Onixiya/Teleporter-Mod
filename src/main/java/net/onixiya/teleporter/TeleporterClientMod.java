@@ -69,7 +69,6 @@ public class TeleporterClientMod implements ClientModInitializer
                 poses = new ArrayList<BlockPos>();
                 names = new ArrayList<String>();
             }
-            //System.out.println("UpdatedPLayer");
         });
         ClientSidePacketRegistry.INSTANCE.register(Packets.SEND_PUBLICITY_UPDATE, (context, buffer) ->
         {
@@ -86,7 +85,6 @@ public class TeleporterClientMod implements ClientModInitializer
 
     public static CustomPayloadC2SPacket createRegisterPortal(String name, BlockPos blockPos)
     {
-        //System.out.println("RegisterPortalPacket");
         PacketByteBuf pbb = new PacketByteBuf(Unpooled.buffer());
         pbb.writeString(name);
         pbb.writeBlockPos(blockPos);
@@ -94,13 +92,11 @@ public class TeleporterClientMod implements ClientModInitializer
     }
     public static CustomPayloadC2SPacket createRequestPortalList()
 	{
-		//System.out.println("GetPositionsPacket");
 		PacketByteBuf pbb = new PacketByteBuf(Unpooled.buffer());
 		return new CustomPayloadC2SPacket(Packets.REQUEST_PORTAL_LIST,pbb);
     }
     public static CustomPayloadC2SPacket createRequestTeleport(int index, String owner)
     {
-        //System.out.println("RequestTeleport");
         PacketByteBuf pbb = new PacketByteBuf(Unpooled.buffer());
         pbb.writeInt(index);
         pbb.writeString(owner);
@@ -108,7 +104,6 @@ public class TeleporterClientMod implements ClientModInitializer
     }
     public static CustomPayloadC2SPacket createRemoveEntry(BlockPos bp)
     {
-        //System.out.println("RemoveEntry");
         PacketByteBuf pbb = new PacketByteBuf(Unpooled.buffer());
         pbb.writeBlockPos(bp);
         return new CustomPayloadC2SPacket(Packets.REMOVE_ENTRY,pbb);
@@ -121,7 +116,6 @@ public class TeleporterClientMod implements ClientModInitializer
             return null;
         }
         pbb.writeString(name);
-        //System.out.println("Sent Search Player");
         return new CustomPayloadC2SPacket(Packets.SEARCH_PLAYER,pbb);
     }
     public static CustomPayloadC2SPacket createChangeLocationStatus(int index, boolean isPublic)

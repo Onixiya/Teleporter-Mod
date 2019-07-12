@@ -77,7 +77,7 @@ public class TeleporterGui extends Screen {
         }, true));
 
         if (!TeleporterClientMod.poses.contains(position)) 
-        { //Save Location
+        {
             this.addButton(new ButtonWidget(width() +100-60, 204, 120, 20, "Save This Location", (buttonWidget -> 
             {
                 this.minecraft.player.closeScreen();
@@ -85,22 +85,17 @@ public class TeleporterGui extends Screen {
             })));
         }
         else if(TeleporterClientMod.poses.contains(position) )
-        { //Remove Location
+        {
             this.addButton(new ButtonWidget(width() +100-65, 204, 130, 20, "Remove This Location", (buttonWidget -> 
             {
                 this.nic.sendPacket(TeleporterClientMod.createRemoveEntry(this.position));
                 this.minecraft.player.closeScreen();
             })));
         }
-        // this.addButton(new ButtonWidget (this.width() +155,5,20,20,"Go", (ButtonWidget ->
-        // {
-        //     searchPlayer(this.nameField.getText());
-        // })));
     }
 
     private void searchPlayer(String name)
     {
-        //Player497
         if(name.equals(this.minecraft.player.getEntityName()))
         {
             return;
@@ -109,10 +104,8 @@ public class TeleporterGui extends Screen {
         if(name.length() > 3)
         {
             CustomPayloadC2SPacket searchPlayer = TeleporterClientMod.createSearchPlayer(name);
-            //System.out.println("GUi start searchPlayer");
             if(searchPlayer != null)
             {
-                //System.out.println("GUi send searchPlayer");
                 this.listOwner = name;
                 this.pageIndex = 1;
                 this.nic.sendPacket(searchPlayer);
@@ -126,12 +119,6 @@ public class TeleporterGui extends Screen {
                 locationButtons[i].visible = false;
                 toggleswitches[i].visible = false;
             }
-            // locationButtons[0].visible = false;
-            // locationButtons[1].visible = false;
-            // locationButtons[2].visible = false;
-            // locationButtons[3].visible = false;
-            // locationButtons[4].visible = false;
-            // locationButtons[5].visible = false;
         }
         
     }
@@ -144,34 +131,25 @@ public class TeleporterGui extends Screen {
     @Override
     protected void init() 
     {
-        
-        //#region Must Be Top
         nic = MinecraftClient.getInstance().getNetworkHandler();
         nameListHashCode = getCurrentHashCode();
         isPublicListHashCode = TeleporterClientMod.isPublic.hashCode();
         listOwner = this.minecraft.player.getEntityName();
-        
-        //#endregion
         buttonRegistry();
-
-        //this.setInitialFocus(this);
-        //this.maxPages = Math.max(1,(int)Math.ceil((double)TeleporterClientMod.names.size()/6d));
         calcMaxPages();
         back.visible = false;
         forward.visible = false;
         generateTeleportButtons();
         this.nameField = new TextFieldWidget(this.font, this.width()+57, 10, 103, 14, "");
-        //                                                           50  7
-        { // nameField
+        {
             this.nameField.setEditableColor(0xbfbf73);
             this.nameField.setHasBorder(false);
-            this.nameField.setMaxLength(16); // name can only be 3 - 16 chars
+            this.nameField.setMaxLength(16);
             this.nameField.setIsEditable(true);
-            this.nameField.setText(this.minecraft.player.getEntityName());//Search player...");
+            this.nameField.setText(this.minecraft.player.getEntityName());
         }
         this.children.add(this.nameField);
         this.setInitialFocus(nameField);
-        //System.out.println(nameField != null);
         super.init();
     }
 
@@ -205,7 +183,6 @@ public class TeleporterGui extends Screen {
         {
             forward.visible = false;
         }
-        //this.renderBackground();
         GlStateManager.pushMatrix();
 
         this.minecraft.getTextureManager().bindTexture(BG_Texture);
@@ -213,17 +190,12 @@ public class TeleporterGui extends Screen {
 
         
         this.minecraft.getTextureManager().bindTexture(waterTexture);
-        //guess and check till i figure out whta i'm doing
         blit(width()+27,28,0,0,(tick%32*152),150,150,16*16*19,152);
-        //                          16*16*(19/2)
 
-        this.drawCenteredString(textRenderer, getPageDisplay(), width() + 100, 185, 0x694069);//0xaaaa55);
+        this.drawCenteredString(textRenderer, getPageDisplay(), width() + 100, 185, 0x694069);
         GlStateManager.popMatrix();
         fill(this.width()+50+5, 7, this.width()+153-5, 3+18, 0x66000000);
         this.nameField.render(int1, int2, float1);
-        //fill(0, 5, this.width()+100, 5+20, 0xFFFFFF);
-        
-        //AnvilScreen
         super.render(int1, int2, float1);
     }
 
@@ -257,7 +229,6 @@ public class TeleporterGui extends Screen {
             {
                 if(locationButtons[x]==null)
                 {
-                    //System.out.println("NULL NULL");
                     return;
                 }
                 locationButtons[x].visible = false;
@@ -268,12 +239,11 @@ public class TeleporterGui extends Screen {
     }
 
     private void generateTeleportButtons() {
-        final int width = this.width / 2 - 54;//;68;//this.width / 2 - 60;
-        int height = 30;//15;
+        final int width = this.width / 2 - 54;
+        int height = 30;
         for (int x = 0 ; x < 6; x++) 
         {
             int index = x + ((6 * pageIndex) - 6);
-            //loaded = true;
             locationButtons[x] = this.addButton(new LocationButton(width, height, "", "",index, (buttonwidget) -> {
                 this.nic.sendPacket(TeleporterClientMod.createRequestTeleport(((LocationButton)buttonwidget).index, listOwner));
             }));

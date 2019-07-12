@@ -1,17 +1,15 @@
 package net.onixiya.teleporter;
 
 import java.util.Iterator;
-
 import net.onixiya.teleporter.blocks.TeleporterBlock;
-import net.onixiya.teleporter.generations.TeleporterFeature;
-import net.onixiya.teleporter.generations.TeleporterGenerator;
+import net.onixiya.teleporter.blocks.TeleporterBlockEntity;
 import net.onixiya.teleporter.gui.TeleporterGui;
 import net.onixiya.teleporter.interfaces.ServerTeleportHelper;
 import net.onixiya.teleporter.registries.ServerPacketRegistries;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.packet.DifficultyS2CPacket;
 import net.minecraft.client.network.packet.EntityPotionEffectS2CPacket;
@@ -25,18 +23,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelProperties;
 
 public class TeleporterMod implements ModInitializer {
@@ -44,31 +34,20 @@ public class TeleporterMod implements ModInitializer {
 	public static final TeleporterBlock bbb = new TeleporterBlock();
 	public static final String MODID = "tele";
     public static final String MODID_SHORT = "tele";
-    
-    public static final StructurePieceType TeleporterPieceType = 
-        Registry.register(Registry.STRUCTURE_PIECE, "tele_piece", TeleporterGenerator.Piece::new);//TeleporterGenerator.Piece::new);
-    public static final StructureFeature<DefaultFeatureConfig> TeleporterFeature = 
-        Registry.register(Registry.FEATURE, "tele_feature", new TeleporterFeature());
-    public static final StructureFeature<?> TeleporterStruct = 
-        Registry.register(Registry.STRUCTURE_FEATURE, "tele_structure", TeleporterFeature);
+    public static final TeleporterBlock TELEPORTER_BLOCK= new TeleporterBlock();
+
+    public static BlockEntityType<TeleporterBlockEntity> TELEPORTER_ENTITY =
+        BlockEntityType.Builder.create(TeleporterBlockEntity::new, bbb).build(null);
 
 
 	@Override
 	public void onInitialize() {
 		Registry.register(Registry.BLOCK, new Identifier(MODID, "tele"), bbb);
 		Registry.register(Registry.ITEM, new Identifier(MODID, "tele"),
-				new BlockItem(bbb, new Item.Settings().itemGroup(ItemGroup.MISC)));
+                new BlockItem(bbb, new Item.Settings().itemGroup(ItemGroup.MISC)));
+        TELEPORTER_ENTITY = Registry.register(Registry.BLOCK_ENTITY, "modid:demo", BlockEntityType.Builder.create(TeleporterBlockEntity::new, TELEPORTER_BLOCK).build(null));
+        Registry.register(Registry.BLOCK_ENTITY, MODID, TELEPORTER_ENTITY);
         ServerPacketRegistries.reg();
-
-        Feature.STRUCTURES.put("Teleporter Feature",TeleporterFeature);
-        for(Biome b : Registry.BIOME)
-        {
-            if(b.hasStructureFeature(Feature.END_CITY))
-            {
-                b.addStructureFeature(TeleporterFeature, new DefaultFeatureConfig());
-                b.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,Biome.configureFeature(TeleporterFeature, new DefaultFeatureConfig(), Decorator.CHANCE_PASSTHROUGH, new ChanceDecoratorConfig(1)));
-            }
-        }
 
     }
 
@@ -100,7 +79,6 @@ public class TeleporterMod implements ModInitializer {
 
         player.setWorld(destWorld);
         destWorld.method_18211(player);
-        //this.method_18783(serverWorld_1);
         player.networkHandler.requestTeleport(player.x, player.y, player.z, player.yaw, player.pitch);
         player.interactionManager.setWorld(destWorld);
         player.networkHandler.sendPacket(new PlayerAbilitiesS2CPacket(player.abilities));
@@ -114,9 +92,6 @@ public class TeleporterMod implements ModInitializer {
         }
 
         player.networkHandler.sendPacket(new WorldEventS2CPacket(1032, BlockPos.ORIGIN, 0, false));
-        //this.field_13978 = -1;
-        //this.field_13997 = -1.0F;
-		//this.field_13979 = -1;
 		player.onTeleportationDone();
         return player;
     }

@@ -48,7 +48,6 @@ public class ServerPacketRegistries
 				}
 				PortalList.overwritePortalLocations(pe, pl);
 			}
-			//System.out.println(pList.version + " asdfasdf");
 			((ServerPlayerEntity)pe).networkHandler.sendPacket(createSendPortalLocations(pl.positions, pl.names,pl.dimensions,pl.isPublic));
 		});
 
@@ -59,7 +58,6 @@ public class ServerPacketRegistries
 			BlockPos bpos = buffer.readBlockPos();
 			boolean within_range = Math.sqrt(context.getPlayer().squaredDistanceTo(bpos.getX(), bpos.getY(), bpos.getZ())) < 10;
 			boolean is_tele_bath = context.getPlayer().getEntityWorld().getBlockState(bpos).getBlock() == TeleporterMod.bbb;
-			//String uuid = packetContext.getPlayer().getUuidAsString();
 			if(within_range && is_tele_bath)
 			{
 				PortalList.addPortalLocation(context.getPlayer(), bpos, name);
@@ -81,7 +79,6 @@ public class ServerPacketRegistries
 		{
 			debug("packet(REQUEST_TELEPORT)");
 			int indexOfLocEntry = packetByteBuf.readInt();
-			//debug("Index " + index);
 			String owner = packetByteBuf.readString(16);
 			ServerPlayerEntity pe = (ServerPlayerEntity)packetContext.getPlayer();
 			PortalList pl;
@@ -90,7 +87,6 @@ public class ServerPacketRegistries
 
 			if(owner.equals(pe.getEntityName()))
 			{
-				//debug("is owner");
 				pl = PortalList.getPortalList(packetContext.getPlayer());
 				blockPos = pl.positions.get(indexOfLocEntry);
 				dt = DimensionType.byId(new Identifier(pl.dimensions.get(indexOfLocEntry)));
@@ -98,19 +94,13 @@ public class ServerPacketRegistries
 			else
 			{
 				pl = PortalList.getPortalList(PlayerEntity.getOfflinePlayerUuid(owner));
-				//debug("List length " + pl.names.size());
 				for(int portalListIndex = 0,publicIndex = -1; portalListIndex < pl.names.size(); portalListIndex ++)
 				{
 					publicIndex += (pl.isPublic.get(portalListIndex) ? 1 : 0);
-					//debug("portalListIndex "+ portalListIndex);
-					//debug("publicIndex" + publicIndex);
 					if(publicIndex == indexOfLocEntry)
 					{
 						blockPos = pl.positions.get(portalListIndex);
 						dt = DimensionType.byId(new Identifier(pl.dimensions.get(portalListIndex)));
-						//System.out.println(index);
-						//System.out.println(portalListIndex);
-						//System.out.println(publicIndex);
 						break;
 					}
 				}
@@ -120,10 +110,6 @@ public class ServerPacketRegistries
 				System.out.println("IF YOU SEE THIS MESSAGE. PLEASE CONTACT BIOM4ST3R.\n " + packetContext.getPlayer().getEntityName() +" HAS ATTEMPTED TO ACCESS AN INVALID TELEPORT LOCATION.");
 				return;
 			}
-
-			// BlockPos blockPos = pl.positions.get(index);
-			// String dimension = pl.dimensions.get(index);
-			// DimensionType dt = DimensionType.byId(new Identifier(dimension));
 			boolean illegalHeight = blockPos.getY() == 125 || blockPos.getY() == 126;
 
 			if(illegalHeight && dt == DimensionType.THE_NETHER)
@@ -139,10 +125,9 @@ public class ServerPacketRegistries
 			{
 				packetContext.getPlayer().requestTeleport(blockPos.getX()+0.5d, blockPos.getY() + 1, blockPos.getZ()+0.5d);
 			}
-			//checking if valid
 			BlockState Teleporter = pe.world.getBlockState(blockPos);
 			pe.getEntityWorld().sendEntityStatus(pe, (byte)46);
-			if(Teleporter.getBlock() != TeleporterMod.bbb) // Teleporter.isAir())
+			if(Teleporter.getBlock() != TeleporterMod.bbb)
 			{
 				pl.remove(indexOfLocEntry);
 				if(pe.getEntityName().equals(owner))
@@ -177,15 +162,9 @@ public class ServerPacketRegistries
 			boolean searchingForSelf = packetContext.getPlayer().getEntityName().equals(playername);
 			if(pl.names.size() > 3 && !searchingForSelf)
 			{
-				//System.out.println("Sent portal locations");
 				debug("packet(SEARCH_PLAYER)#createSendPublicPortalLocations");
 				((ServerPlayerEntity)packetContext.getPlayer()).networkHandler.sendPacket(createSendPlayerSearchResults(pl.positions, pl.names,pl.dimensions,pl.isPublic));
 			}
-			// else if(searchingForSelf)
-			// {
-			// 	debug("packet(SEARCH_PLAYER)#createSendPortalLocations");
-			// 	((ServerPlayerEntity)packetContext.getPlayer()).networkHandler.sendPacket(createSendPortalLocations(pl.positions, pl.names, pl.dimensions,pl.isPublic));
-			// }
 		});
 		ServerSidePacketRegistry.INSTANCE.register(Packets.CHANGE_PUBLIC_STATUS, (context,buffer) ->
 		{
@@ -196,7 +175,6 @@ public class ServerPacketRegistries
 			PortalList pl = PortalList.getPortalList(pe);
 			pl.isPublic.set(index, isPublic);
 			PortalList.overwritePortalLocations(pe, pl);
-			//((ServerPlayerEntity)pe).networkHandler.sendPacket(createSendPublicityUpdate(pl.isPublic));
 		});
 	}
 	
@@ -235,7 +213,6 @@ public class ServerPacketRegistries
 
     public static CustomPayloadS2CPacket createSendPortalLocations(List<BlockPos> positions, List<String> names, List<String> dimensions,List<Boolean> isPublics)
 	{
-		//System.out.println("sendPortalLocationsPacket");
 		PacketByteBuf pbb = new PacketByteBuf(Unpooled.buffer());
 		pbb.writeInt(positions.size());
 		for(BlockPos p : positions)

@@ -66,11 +66,8 @@ public class TeleporterRegister extends Screen {
     @Override
     public void render(int int1, int int2, float float1) {
         this.renderBackground();
-        // GlStateManager.disableLighting();
         GlStateManager.pushMatrix();
         this.nameField.render(int1, int2, float1);
-        // GlStateManager.disableBlend();
-        //this.blit(this.width/2,0,2,0,192,192);
         GlStateManager.popMatrix();
         super.render(int1, int2, float1);
 

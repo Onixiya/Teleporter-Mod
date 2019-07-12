@@ -105,7 +105,6 @@ public class PortalList
 		File file = new File(path.toString(), pe + ".json");
 		try 
 		{
-			//Found file. and updating
 			FileReader fr = new FileReader(file);
 			pList = new Gson().fromJson(fr, PortalList.class);
 			FileWriter fw = new FileWriter(file);
@@ -114,7 +113,6 @@ public class PortalList
 			return pList;
 		} catch (FileNotFoundException e) 
 		{
-			// File not Found
 			pList = new PortalList();
 			try 
 			{

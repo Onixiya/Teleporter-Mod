@@ -1,0 +1,22 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "qeq",
+        " p ",
+        "qqq"
+    ],
+    "key": {
+        "p": {
+            "item": "minecraft:quartz_pillar"
+        },
+        "q": {
+            "item": "minecraft:quartz_block"
+        },
+        "e": {
+            "item": "minecraft:ender_eye"
+        }
+    },
+    "result": {
+        "item": "tele:tele"
+    }
+}

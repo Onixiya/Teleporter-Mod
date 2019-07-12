@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "net.onixiya.teleporter.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "requires": {
+    "fabric": "*"
+  },
+  "mixins": [
+    "ServerPlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

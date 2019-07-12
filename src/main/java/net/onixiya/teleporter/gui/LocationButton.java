@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class LocationButton extends ButtonWidget
 {
-    private static final Identifier MY_BOOK = new Identifier(TeleporterMod.MODID,"textures/gui/tele.png");// "textures/gui/book.png");
+    private static final Identifier MY_BOOK = new Identifier(TeleporterMod.MODID,"textures/gui/tele.png");
     private String body;
     private String title;
     public int index;
@@ -47,24 +47,11 @@ public class LocationButton extends ButtonWidget
             y-=buttonHeight;
             this.blit(this.x,this.y,x,y,buttonWidth,buttonHeight);
         }
-        
-        
-        //textRenderer.drawStringBounded(title, this.x+3, this.y+3, buttonWidth,0);
-        //textRenderer.drawStringBounded(body, this.x+3, this.y+9+4,buttonWidth,0);
-
-        //textRenderer.drawStringBounded(title, this.x+18, this.y+3, buttonWidth,0);
-        //textRenderer.drawStringBounded(body, this.x+18, this.y+9+4,buttonWidth,0);
-
         this.drawCenteredString(textRenderer, title, this.x+58, this.y+3,  0x99eeee);
         this.drawCenteredString(textRenderer, body, this.x+58, this.y+9+4, 0x00abab);
-        //GlStateManager.enableDepthTest();
     }
     public void drawCenteredString(TextRenderer textRenderer_1, String string_1, int xCenter, int yPos, int color) {
         textRenderer.drawStringBounded(string_1, (xCenter - textRenderer_1.getStringWidth(string_1) / 2), yPos, 160,
                 color);
-        // textRenderer.drawWithShadow(string_1, (float)(int_1 -
-        // textRenderer_1.getStringWidth(string_1) / 2), (float)int_2, int_3);
-    }
-
-    
+    }   
 }
