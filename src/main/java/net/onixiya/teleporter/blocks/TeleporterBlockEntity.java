@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 
 public class TeleporterBlockEntity extends BlockEntity {
 
-    private int LockableInvetory = 0;
+    public static int LockableInvetory = 0;
 
     public TeleporterBlockEntity() {
        super(TeleporterMod.TELEPORTER_ENTITY);

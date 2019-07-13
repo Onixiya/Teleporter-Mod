@@ -3,6 +3,7 @@ package net.onixiya.teleporter.blocks;
 import java.util.Random;
 
 import net.onixiya.teleporter.TeleporterMod;
+import net.onixiya.teleporter.blocks.TeleporterBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
@@ -55,14 +56,14 @@ public class TeleporterBlock extends Block implements BlockEntityProvider {
                         blockPos.getZ() + 1, 0, random.nextFloat() - 0.5D, 0);
                 break;
         }
-        }
+    }
 }
 
     @Override
     public boolean activate(BlockState blockState_1, World world_1, BlockPos blockPos_1, PlayerEntity playerEntity_1,
             Hand hand_1, BlockHitResult blockHitResult_1) {
 
-        if (world_1.isClient) {
+        if (TeleporterBlockEntity.LockableInvetory == 0) {
             TeleporterMod.openTeleporterGUI(blockPos_1);
         return true;}
         return false;

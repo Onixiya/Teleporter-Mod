@@ -22,7 +22,6 @@ import net.minecraft.util.math.BlockPos;
 @Environment(EnvType.CLIENT)
 public class TeleporterGui extends Screen {
 
-    private int tick;
     TextRenderer textRenderer = MinecraftClient.getInstance().getFontManager()
             .getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID);
     public static final Identifier Main_Texture = new Identifier(TeleporterMod.MODID,"textures/gui/tele.png");
@@ -46,12 +45,6 @@ public class TeleporterGui extends Screen {
     public TeleporterGui(BlockPos thisPortal) {
         super(new TextComponent("Teleporter"));
         position = thisPortal;
-    }
-    
-    @Override
-    public void tick()
-    {
-        tick++;
     }
     
     @Override
@@ -190,7 +183,7 @@ public class TeleporterGui extends Screen {
 
         
         this.minecraft.getTextureManager().bindTexture(BG_Texture);
-        blit(width()+27,28,0,0,(tick%32*152),150,150,16*16*19,152);
+        this.blit(width()+27,28,0,0,150,150);
 
         this.drawCenteredString(textRenderer, getPageDisplay(), width() + 100, 185, 0x694069);
         GlStateManager.popMatrix();
