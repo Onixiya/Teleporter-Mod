@@ -25,8 +25,8 @@ public class TeleporterGui extends Screen {
     private int tick;
     TextRenderer textRenderer = MinecraftClient.getInstance().getFontManager()
             .getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID);
-    public static final Identifier BG_Texture = new Identifier(TeleporterMod.MODID,"textures/gui/tele.png");
-    public static final Identifier waterTexture = new Identifier(TeleporterMod.MODID, "textures/block/water_still3.png");
+    public static final Identifier Main_Texture = new Identifier(TeleporterMod.MODID,"textures/gui/tele.png");
+    public static final Identifier BG_Texture = new Identifier(TeleporterMod.MODID, "textures/block/end_portal.png");
     private int pageIndex = 1;
     private int maxPages = 666;
     private AbstractButtonWidget back;
@@ -185,11 +185,11 @@ public class TeleporterGui extends Screen {
         }
         GlStateManager.pushMatrix();
 
-        this.minecraft.getTextureManager().bindTexture(BG_Texture);
+        this.minecraft.getTextureManager().bindTexture(Main_Texture);
         this.blit(width()+2,3,0,0,200,200);
 
         
-        this.minecraft.getTextureManager().bindTexture(waterTexture);
+        this.minecraft.getTextureManager().bindTexture(BG_Texture);
         blit(width()+27,28,0,0,(tick%32*152),150,150,16*16*19,152);
 
         this.drawCenteredString(textRenderer, getPageDisplay(), width() + 100, 185, 0x694069);

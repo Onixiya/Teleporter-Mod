@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/end_portal",
+		"0": "tele:block/end_portal",
 		"2": "tele:block/end_frame",
-		"particle": "block/obsidian"
+		"particle": "tele:block/obsidian"
 	},
 	"elements": [
 		{

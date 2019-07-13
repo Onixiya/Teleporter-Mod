@@ -45,7 +45,6 @@ public class TeleporterMod implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier(MODID, "tele"), bbb);
 		Registry.register(Registry.ITEM, new Identifier(MODID, "tele"),
                 new BlockItem(bbb, new Item.Settings().itemGroup(ItemGroup.MISC)));
-        TELEPORTER_ENTITY = Registry.register(Registry.BLOCK_ENTITY, "modid:demo", BlockEntityType.Builder.create(TeleporterBlockEntity::new, TELEPORTER_BLOCK).build(null));
         Registry.register(Registry.BLOCK_ENTITY, MODID, TELEPORTER_ENTITY);
         ServerPacketRegistries.reg();
 
